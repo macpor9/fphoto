@@ -1,0 +1,13 @@
+package pl.maciejp.fphoto;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FphotoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(FphotoApplication.class, args);
+    }
+
+}
