@@ -1,16 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Vuex from 'vuex'
-import store from './store'
-import "vue-material-design-icons/styles.css"
-import './index.css'
-
+import "@mdi/font/css/materialdesignicons.min.css"
+import './main.css'
+import router from "@/router";
 
 Vue.config.productionTip = false
 
-Vue.use(Vuex);
+
+
 new Vue({
-  store,
+  router: router,
   render: h => h(App),
 }).$mount('#app')
 

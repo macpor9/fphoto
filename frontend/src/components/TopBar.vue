@@ -1,14 +1,13 @@
 <template>
   <div class="bar">
     <div class="logoContainer divBar">
-      <img src="/public/res/logo%20%23151515.png">
-
+      <img src="/res/logo2.png" alt="photo">
     </div>
     <div class="optionsContainer divBar">
-      <button class="barButton">first</button>
-      <button class="barButton">second</button>
-      <button class="barButton">third</button>
-      <button class="barButton">forth</button>
+      <button class="barButton">SAVE</button>
+      <button class="barButton">EDIT</button>
+      <button class="barButton">OPEN</button>
+      <button class="barButton">EXPORT</button>
 
     </div>
     <div class="profileOptionsContainer divBar">
@@ -38,6 +37,12 @@ export default {
 
   width: 100vw;
   height: 10vh;
+}
+
+img{
+  height: 10vh;
+  /*max-height: 10vh;*/
+  color: floralwhite
 }
 
 .divBar{

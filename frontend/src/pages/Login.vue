@@ -6,17 +6,18 @@
       <InputLabel fieldName="username"></InputLabel>
       <InputLabel fieldName="password"></InputLabel>
       <div class="buttonsContainer">
-        <button class="field3D">login</button>
-        <button class="field3D">sign up</button>
+        <button class="field3D button">login</button>
+        <router-link to="/register" class="field3D button" tag="button">
+          Sign up
+        </router-link>
       </div>
-
     </div>
 </template>
 
 <script>
 import InputLabel from "@/components/loggedOutComponents/InputLabel";
 export default {
-  name: "loggedOut",
+  name: "login",
   components: {InputLabel}
 }
 
@@ -71,7 +72,7 @@ export default {
           rgba(0, 0, 0, 0)
       ) 90 10%;
 }
-button{
+.button{
   display: flex;
   align-items: center;
   justify-content: center;

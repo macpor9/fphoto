@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-
+  <router-view></router-view>
 <!--    <LoggedOut>-->
 <!--    </LoggedOut>-->
-        <Editing>
-        </Editing>
+<!--        <Editing>-->
+<!--        </Editing>-->
 <!--    <HelloWorld></HelloWorld>-->
   </div>
 </template>
@@ -12,17 +12,15 @@
 <script>
 // import LoggedOut from "@/pages/LoggedOut";
 // import TopBar from "@/components/TopBar";
-import Editing from "@/pages/Editing";
-// import HelloWorld from "@/components/HelloWorld";
+// import Editing from "@/pages/Editing";
 
 
 
 export default {
   name: 'App',
   components: {
-    Editing
+    // Editing
     // LoggedOut
-    // HelloWorld
   },
 }
 </script>

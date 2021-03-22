@@ -1,18 +1,22 @@
 <template>
   <div class="leftBar">
-    <button class="button">1st</button>
-    <button class="button">2nd</button>
-    <button class="button">3rd</button>
-    <button class="button">4th</button>
-    <button class="button">5th</button>
-    <button class="button">6th</button>
-<!--    <Zondicon icon="ArrowLeft" class="fill-current text-red"></Zondicon>-->
-    <span class="mdi mdi-log-out"></span>
+    <span class="mdi mdi-tune"></span>
+    <span class="mdi mdi-format-title"></span>
+    <span class="mdi mdi-lead-pencil"></span>
+    <span class="mdi mdi-selection"></span>
+    <span class="mdi mdi-brush"></span>
+
+
+
+
+
+
+
+    
   </div>
 </template>
 
 <script>
-
 
 
 export default {
@@ -31,17 +35,15 @@ export default {
   width: 4vw;
 }
 
-.fill-current{
-  background-color: red;
+.mdi{
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 
-.button{
-  background: #151515;
-  color: floralwhite;
-  border: none;
-  min-height: 4vw;
+.mdi:hover{
+  background-color: #262626;
 }
-.button:hover{background-color: #262626}
+
 
 </style>
