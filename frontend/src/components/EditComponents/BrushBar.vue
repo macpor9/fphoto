@@ -1,12 +1,14 @@
 <template>
-  <div class="textContainer editBar">
+  <div class="brushContainer editBar">
 
     <div></div>
-    <div>ddasdasads</div>
-    <div>ddasdasads</div>
-    <div>ddasdasads</div>
-    <div>ddasdasads</div>
-    <div>ddasdasads</div>
+    <div>brush</div>
+    <div>brush</div>
+    <div>brush</div>
+    <div>brush</div>
+    <div>brush</div>
+    <div>brush</div>
+
 
 
   </div>
@@ -14,7 +16,7 @@
 
 <script>
 export default {
-  name: "TextField"
+  name: "BrushBar"
 }
 </script>
 

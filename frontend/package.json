@@ -10,8 +10,11 @@
   "dependencies": {
     "@mdi/font": "^5.9.55",
     "core-js": "^3.6.5",
+    "less": "^4.1.1",
+    "less-loader": "^7.3.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

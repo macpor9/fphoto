@@ -1,11 +1,7 @@
 <template>
   <div id="app">
   <router-view></router-view>
-<!--    <LoggedOut>-->
-<!--    </LoggedOut>-->
-<!--        <Editing>-->
-<!--        </Editing>-->
-<!--    <HelloWorld></HelloWorld>-->
+
   </div>
 </template>
 

@@ -27,6 +27,9 @@ export default {
 }
 label{
   color: floralwhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow:
       0 11px 15px -10px black,
       0 -11px 15px -10px black;
@@ -36,13 +39,22 @@ label{
   width: 30vh;
   border-style: solid;
   border-width: 1px;
-  border-left-width: 0;
   border-color: #515151;
-  font-size: 5vh;
-  height: 5vh;
+  font-size: 3vh;
+  height: 3vh;
+
+  background: linear-gradient(to right, #262626, #353535 50%, #262626 );
+  border-image:
+      linear-gradient(
+          to right,
+          #262626,
+          #262626 30%,
+          #515151 50%,
+          #262626 70%,
+          rgba(0, 0, 0, 0)
+      ) 90 10%;
 
 
-  background: linear-gradient(to right, #353535 7%, #262626 30% );
 }
 
 input{

@@ -1,16 +1,10 @@
 <template>
   <div class="leftBar">
-    <span class="mdi mdi-tune"></span>
-    <span class="mdi mdi-format-title"></span>
-    <span class="mdi mdi-lead-pencil"></span>
-    <span class="mdi mdi-selection"></span>
-    <span class="mdi mdi-brush"></span>
-
-
-
-
-
-
+    <span class="mdi mdi-tune" @click="setMenuType('Adjust')"></span>
+    <span class="mdi mdi-format-title" @click="setMenuType('TextField')"></span>
+    <span class="mdi mdi-lead-pencil" @click="setMenuType('PenBar')"></span>
+    <span class="mdi mdi-selection" @click="setMenuType('SelectBar')"></span>
+    <span class="mdi mdi-brush" @click="setMenuType('BrushBar')"></span>
 
     
   </div>
@@ -18,20 +12,25 @@
 
 <script>
 
-
 export default {
   name: "LeftBar",
   components: {
+  },
+  methods: {
+    setMenuType(type){
+      this.$store.commit('setMenuType',type)
+    }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@import "./../../assets/variables.less";
 
 .leftBar{
   display: flex;
   flex-direction: column;
-  background-color: #151515;
+  background-color: @dark-color;
   width: 4vw;
 }
 
@@ -42,7 +41,7 @@ export default {
 
 
 .mdi:hover{
-  background-color: #262626;
+  background-color: @middle-color;
 }
 
 

@@ -16,12 +16,11 @@ export default {
 <style scoped>
 
 label{
-  box-shadow:
-       0 11px 40px -15px black,
-       0 -11px 40px -15px black;
+  /*box-shadow:*/
+  /*     0 11px 40px -15px black,*/
+  /*     0 -11px 40px -15px black;*/
   padding: 1vh 5vh;
-  margin: 10px;
-  margin-bottom: 50px;
+  margin: 10px 10px 50px;
   font-size: 7vh;
   background: linear-gradient(to right, #262626, #353535 50%, #262626 );
   color: floralwhite;

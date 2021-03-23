@@ -12,7 +12,9 @@
     </div>
     <div class="profileOptionsContainer divBar">
       <button class="barButton">nickname</button>
-      <button class="barButton">logout</button>
+      <router-link to="/login" class="barButton" tag="button">
+        logout
+      </router-link>
 
     </div>
 
