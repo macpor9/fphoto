@@ -1,18 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <router-view></router-view>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import LoggedOut from "@/pages/LoggedOut";
+// import TopBar from "@/components/TopBar";
+// import Editing from "@/pages/Editing";
+
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    // Editing
+    // LoggedOut
+  },
 }
 </script>
 
@@ -22,7 +27,16 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100vh;
+  width: 100vw;
+  background-color: #262626;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
+body{
+  margin: 0;
+}
+
 </style>
