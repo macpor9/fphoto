@@ -1,15 +1,24 @@
 <template>
-  <div class="InputLabel">
-    <label>{{fieldName}}</label>
-    <input type="text">
-  </div>
+  <ValidationProvider class="InputLabel" :name=fieldName rules="required" v-slot="{errors}">
+    <div class="nameInput">
+      <label :for="fieldName">{{ fieldName }}</label>
+      <input :type=fieldType v-model=fieldModel>
+    </div>
+      <span>{{ errors[0] }}</span>
+  </ValidationProvider>
 </template>
 
 <script>
+
+
 export default {
   name: "InputLabel",
   props: {
-    fieldName: String
+    fieldName: String,
+    fieldType: String,
+    fieldValidate: String,
+    fieldRules: String,
+    fieldModel: String
   }
 }
 
@@ -21,7 +30,7 @@ export default {
 
 .InputLabel{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
 }
@@ -63,6 +72,11 @@ input{
   margin: 15px;
   border-radius: 5px;
   font-size: 5vh;
+}
+
+.nameInput{
+  display: flex;
+  flex-direction: row;
 }
 
 </style>

@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import {auth} from './auth.module';
 
 const Store = () => {
     return new Vuex.Store({
@@ -14,7 +15,11 @@ const Store = () => {
             menuType: state => {
                 return state.menuType
             }
+        },
+        modules: {
+            auth
         }
+
 
     })
 }

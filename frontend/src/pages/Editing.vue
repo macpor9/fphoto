@@ -3,8 +3,6 @@
     <TopBar></TopBar>
     <div class="editContent">
       <LeftBar></LeftBar>
-<!--      <Adjust></Adjust>-->
-<!--      <TextField></TextField>-->
       <component v-bind:is="this.$store.getters.menuType"></component>
     </div>
   </div>
