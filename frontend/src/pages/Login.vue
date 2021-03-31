@@ -38,11 +38,17 @@ export default {
   name: "login",
   data(){
     return {
-      user: new User('','')
+      user: new User('',''),
+      loading: false,
+      message: ''
     }
   },
   methods: {
     handleLogin(){
+      this.loading=true;
+      this.$store.dispatch('auth/login', this.user);
+      this.$router.push("/profile");
+
 
     }
   }
