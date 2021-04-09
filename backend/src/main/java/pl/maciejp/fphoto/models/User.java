@@ -29,11 +29,11 @@ public class User {
         this.email = email;
     }
 
-    public User(RegisterRequest registerRequest){
-        this.login = registerRequest.getLogin();
-        this.password = registerRequest.getPassword();
-        this.email = registerRequest.getEmail();
-    }
+//    public User(RegisterRequest registerRequest){
+//        this.login = registerRequest.getLogin();
+//        this.password = registerRequest.getPassword();
+//        this.email = registerRequest.getEmail();
+//    }
 
 
 

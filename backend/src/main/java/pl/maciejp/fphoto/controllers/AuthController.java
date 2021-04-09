@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.maciejp.fphoto.models.User;
 import pl.maciejp.fphoto.payload.request.LoginRequest;
 import pl.maciejp.fphoto.payload.request.RegisterRequest;
 import pl.maciejp.fphoto.payload.response.MessageResponse;
 import pl.maciejp.fphoto.repositories.UserRepository;
 
-import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:8081")
@@ -19,6 +19,8 @@ public class AuthController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PasswordEncoder encoder;
 
 
     @PostMapping("/signup")
@@ -33,9 +35,10 @@ public class AuthController {
 
         User user = new User(
                 registerRequest.getLogin(),
-                registerRequest.getPassword(),
+                encoder.encode(registerRequest.getPassword()),
                 registerRequest.getEmail()
         );
+
         userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User registrated!"));
     }
