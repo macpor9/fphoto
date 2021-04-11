@@ -5,7 +5,7 @@
       <div class="profileContainer">
         <div class="fieldContainer">
           <span class="fieldName">ID</span>
-          <span class="fieldValue">testid</span>
+          <span class="fieldValue">{{this.$store.getters["auth/us"]}}</span>
         </div>
         <div class="fieldContainer">
           <span class="fieldName">login</span>

@@ -9,7 +9,7 @@ const initialState = user
 
 export const auth = {
     namespaced: true,
-    state: initialState,
+    state: {initialState,user},
     actions: {
         login({ commit }, user) {
             return AuthService.login(user).then(
@@ -58,6 +58,11 @@ export const auth = {
         },
         registerFailure(state) {
             state.status.loggedIn = false;
+        }
+    },
+    getters: {
+        us: state => {
+            return state.user;
         }
     }
 };

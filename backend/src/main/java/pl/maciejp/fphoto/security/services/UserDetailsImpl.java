@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pl.maciejp.fphoto.models.User;
 
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
@@ -30,24 +31,24 @@ public class UserDetailsImpl implements UserDetails {
         this.password = password;
     }
 
-    public UserDetailsImpl(int id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.login = username;
-        this.email = email;
-        this.password = password;
-        this.authorities = authorities;
-    }
-
-//    public static UserDetailsImpl build(User user) {
-//
-//        return new UserDetailsImpl(
-//                user.getId(),
-//                user.getLogin(),
-//                user.getEmail(),
-//                user.getPassword(),
-//                this.authorities);
+//    public UserDetailsImpl(int id, String username, String email, String password,
+//                           Collection<? extends GrantedAuthority> authorities) {
+//        this.id = id;
+//        this.login = username;
+//        this.email = email;
+//        this.password = password;
+//        this.authorities = authorities;
 //    }
+
+    public static UserDetailsImpl build(User user) {
+
+        return new UserDetailsImpl(
+                user.getId(),
+                user.getLogin(),
+                user.getEmail(),
+                user.getPassword()
+        );
+    }
 
 
     public int getId() {

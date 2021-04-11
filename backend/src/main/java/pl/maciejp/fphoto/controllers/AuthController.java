@@ -3,13 +3,19 @@ package pl.maciejp.fphoto.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.maciejp.fphoto.models.User;
 import pl.maciejp.fphoto.payload.request.LoginRequest;
 import pl.maciejp.fphoto.payload.request.RegisterRequest;
+import pl.maciejp.fphoto.payload.response.JwtResponse;
 import pl.maciejp.fphoto.payload.response.MessageResponse;
 import pl.maciejp.fphoto.repositories.UserRepository;
+import pl.maciejp.fphoto.security.jwt.JwtUtils;
+import pl.maciejp.fphoto.security.services.UserDetailsImpl;
 
 
 @RestController
@@ -22,8 +28,15 @@ public class AuthController {
     @Autowired
     PasswordEncoder encoder;
 
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    JwtUtils jwtUtils;
+
 
     @PostMapping("/signup")
+    @CrossOrigin("http://localhost:8081")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest){
         if(userRepository.existsByLogin(registerRequest.getLogin())){
             return ResponseEntity.badRequest().body(new MessageResponse("User with this login already exists"));
@@ -54,7 +67,22 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
 
-        User user = userRepository.findFirstByLogin(loginRequest.getLogin());
-        return ResponseEntity.ok(new MessageResponse("User logged in"));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getPassword(),
+                        loginRequest.getPassword())
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail()
+                )
+        );
     }
 }

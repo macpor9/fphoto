@@ -46,8 +46,16 @@ export default {
   methods: {
     handleLogin(){
       this.loading=true;
-      this.$store.dispatch('auth/login', this.user);
-      this.$router.push("/profile");
+      this.$store.dispatch('auth/login', this.user).then(
+          ()=>{
+            this.$router.push('/profile');
+          },
+          error => {
+            this.loading = false;
+            this.message = (error.response && error.response.data.message) ||
+                error.message || error.toString;
+          }
+      );
 
 
     }
