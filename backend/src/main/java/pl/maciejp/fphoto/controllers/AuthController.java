@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.maciejp.fphoto.models.User;
@@ -38,7 +40,7 @@ public class AuthController {
     @PostMapping("/signup")
     @CrossOrigin("http://localhost:8081")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest){
-        if(userRepository.existsByLogin(registerRequest.getLogin())){
+        if(userRepository.existsByUsername(registerRequest.getUsername())){
             return ResponseEntity.badRequest().body(new MessageResponse("User with this login already exists"));
         }
 
@@ -47,7 +49,7 @@ public class AuthController {
         }
 
         User user = new User(
-                registerRequest.getLogin(),
+                registerRequest.getUsername(),
                 encoder.encode(registerRequest.getPassword()),
                 registerRequest.getEmail()
         );
@@ -57,26 +59,26 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    public User user(String login){
-        User user = userRepository.findFirstByLogin("dawid");
+    public User user(String username){
+        User user = userRepository.findFirstByUsername("dawid");
 
 
         return user;
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
-
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) throws UsernameNotFoundException {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getPassword(),
+                        loginRequest.getUsername(),
                         loginRequest.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
@@ -84,5 +86,6 @@ public class AuthController {
                 userDetails.getEmail()
                 )
         );
+
     }
 }

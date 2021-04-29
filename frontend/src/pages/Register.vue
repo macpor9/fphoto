@@ -5,10 +5,10 @@
           Registration
         </label>
         <div class="InputLabel">
-          <ValidationProvider class="InputLabel" name="login" rules="required|min:5" v-slot="{ errors }">
+          <ValidationProvider class="InputLabel" name="username" rules="required|min:5" v-slot="{ errors }">
             <div class="nameInput">
               <label class="formLabel">login</label>
-              <input class="formInput" v-model="user.login" type="text">
+              <input class="formInput" v-model="user.username" type="text">
             </div>
             <span>{{ errors[0] }}</span>
           </ValidationProvider>
@@ -50,12 +50,12 @@
         <router-link to="/login" class="redirectButton" tag="span">
           Already have an account?
         </router-link>
+        <div
+            v-if="message"
+            :class="successful ? 'alertSuccess' : 'alertDanger'"
+        >{{ message }}
+        </div>
       </div>
-    <div
-        v-if="message"
-        :class="successful ? 'alertSuccess' : 'alertDanger'"
-    >{{ message }}
-    </div>
   </ValidationObserver>
 </template>
 

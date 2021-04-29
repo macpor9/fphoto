@@ -5,6 +5,7 @@
       <LeftBar></LeftBar>
       <component v-bind:is="this.$store.getters.menuType"></component>
     </div>
+    <upload-photo-popup v-if="this.$store.getters['photo/popupState'] === true"></upload-photo-popup>
   </div>
 </template>
 
@@ -16,14 +17,20 @@ import TextField from "@/components/EditComponents/TextField";
 import BrushBar from "@/components/EditComponents/BrushBar";
 import PenBar from "@/components/EditComponents/PenBar";
 import SelectBar from "@/components/EditComponents/SelectBar";
+import UploadPhotoPopup from "@/components/popups/uploadPhotoPopup";
 
 export default {
   name: "Editing",
-  components: {TextField, Adjust, LeftBar, TopBar,BrushBar, PenBar,SelectBar},
+  components: {UploadPhotoPopup, TextField, Adjust, LeftBar, TopBar,BrushBar, PenBar,SelectBar},
   computed: {
     getMenuType(){
       return 'Adjust'
     }
+  },
+  methods: {
+    // handleFocusOut() {
+    //   this.$store.commit('photo/setPopupVisibility',false)
+    // }
   }
 }
 </script>

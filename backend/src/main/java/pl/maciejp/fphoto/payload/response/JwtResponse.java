@@ -3,13 +3,13 @@ package pl.maciejp.fphoto.payload.response;
 public class JwtResponse {
     private String token;
     private int id;
-    private String login;
+    private String username;
     private String email;
 
-    public JwtResponse(String accessToken, int id, String login, String email) {
+    public JwtResponse(String accessToken, int id, String username, String email) {
         this.token = accessToken;
         this.id = id;
-        this.login = login;
+        this.username = username;
         this.email = email;
     }
 
@@ -37,12 +37,12 @@ public class JwtResponse {
         this.email = email;
     }
 
-    public String login() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void login(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

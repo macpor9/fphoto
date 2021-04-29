@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.maciejp.fphoto.Structures.UserStructure;
 import pl.maciejp.fphoto.models.User;
 import pl.maciejp.fphoto.repositories.UserRepository;
 
@@ -28,9 +27,9 @@ public class UserController {
 
     @GetMapping(value="/", produces = MediaType.TEXT_PLAIN_VALUE)
     public String index() {
-        List<User> userList = userRepository.findByLogin("user1");
+        List<User> userList = userRepository.findByUsername("user1");
 
-        return userList.get(0).getLogin();
+        return userList.get(0).getUsername();
     }
 
 

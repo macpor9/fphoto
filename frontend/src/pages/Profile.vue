@@ -5,15 +5,15 @@
       <div class="profileContainer">
         <div class="fieldContainer">
           <span class="fieldName">ID</span>
-          <span class="fieldValue">{{this.$store.getters["auth/us"]}}</span>
+          <span class="fieldValue">{{ this.$store.getters["auth/userId"] }}</span>
         </div>
         <div class="fieldContainer">
-          <span class="fieldName">login</span>
-          <span class="fieldValue">testlogin</span>
+          <span class="fieldName">username</span>
+          <span class="fieldValue">{{this.$store.getters["auth/userName"]}}</span>
         </div>
         <div class="fieldContainer">
           <span class="fieldName">email</span>
-          <span class="fieldValue">testemail</span>
+          <span class="fieldValue">{{this.$store.getters["auth/userEmail"]}}</span>
         </div>
 
 
@@ -21,15 +21,17 @@
       </div>
 
     </div>
+    <upload-photo-popup v-if="this.$store.getters['photo/popupState'] === true"></upload-photo-popup>
 
   </div>
 </template>
 
 <script>
 import TopBar from "@/components/TopBar";
+import UploadPhotoPopup from "@/components/popups/uploadPhotoPopup";
 export default {
   name: "Profile",
-  components: {TopBar}
+  components: {UploadPhotoPopup, TopBar}
 }
 </script>
 

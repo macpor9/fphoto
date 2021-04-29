@@ -51,7 +51,6 @@ public class DataBaseInit {
                     .build();
         }catch (Exception e){
             e.printStackTrace();
-//            throw e;
             return null;
         }
     }

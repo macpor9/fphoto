@@ -6,10 +6,11 @@ import pl.maciejp.fphoto.models.User;
 import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
-    List<User> findByLogin(String login);
+    List<User> findByUsername(String username);
     List<User> findById(int id);
-    User findFirstByLogin(String login);
-    Boolean existsByLogin(String login);
+    User findFirstByUsername(String login);
+    Boolean existsByUsername(String login);
     Boolean existsByEmail(String email);
+    Boolean existsByPassword(String password);
 
 }

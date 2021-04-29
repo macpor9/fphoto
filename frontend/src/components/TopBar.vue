@@ -5,17 +5,18 @@
     </div>
     <div class="optionsContainer divBar">
       <button class="barButton">SAVE</button>
-      <button class="barButton">EDIT</button>
-      <button class="barButton">OPEN</button>
+      <router-link to="/editing" tag="button" class="barButton">EDIT</router-link>
+      <button class="barButton" @click="openUploadPopup">OPEN</button>
       <button class="barButton">EXPORT</button>
+
 
     </div>
     <div class="profileOptionsContainer divBar">
-      <button class="barButton">nickname</button>
-      <router-link to="/login" class="barButton" tag="button">
-        logout
-      </router-link>
-
+      <router-link to="/profile" tag="button" class="barButton">{{ this.$store.getters["auth/userName"] }}</router-link>
+<!--      <router-link to="/login" class="barButton" tag="button">-->
+<!--        logout-->
+<!--      </router-link>-->
+      <button class="barButton" @click="handleLogout">logout</button>
     </div>
 
   </div>
@@ -23,7 +24,17 @@
 
 <script>
 export default {
-  name: "TopBar"
+  name: "TopBar",
+  openPhotoPopup: false,
+  methods: {
+    handleLogout() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    },
+    openUploadPopup() {
+      this.$store.commit('photo/setPopupVisibility',true)
+    }
+  }
 }
 </script>
 

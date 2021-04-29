@@ -2,10 +2,10 @@ package pl.maciejp.fphoto.Structures;
 
 public class UserStructure {
 
-    public String login;
+    public String username;
 
-    public UserStructure(String login){
-        this.login = login;
+    public UserStructure(String username){
+        this.username = username;
 
     }
 }

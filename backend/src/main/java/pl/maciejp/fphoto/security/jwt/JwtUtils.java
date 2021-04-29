@@ -20,11 +20,9 @@ public class JwtUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-//    @Value("${fphoto.app.jwtSecret}")
     private String jwtSecret = "jwtS";
 
-//    @Value("${fphoto.app.jwtExpirationMs}")
-    private int jwtExpirationMs = 1;
+    private final int jwtExpirationMs = 1;
 
     public String generateJwtToken(Authentication authentication) {
 

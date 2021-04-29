@@ -1,7 +1,5 @@
 package pl.maciejp.fphoto.models;
 
-import pl.maciejp.fphoto.payload.request.RegisterRequest;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,7 +11,7 @@ public class User {
     private int id;
 
     @Column()
-    private String login;
+    private String username;
 
     @Column
     private String password;
@@ -23,8 +21,8 @@ public class User {
 
     public User(){};
 
-    public User(String login, String password, String email){
-        this.login = login;
+    public User(String username, String password, String email){
+        this.username = username;
         this.password = password;
         this.email = email;
     }
@@ -45,12 +43,12 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     public String getPassword() {
