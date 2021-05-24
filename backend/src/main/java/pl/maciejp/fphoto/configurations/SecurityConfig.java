@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -17,6 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Bean
+    public OriginFilter originFilter(){
+        return new OriginFilter();
+    }
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
@@ -34,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/*").permitAll()
                 .and()
                 .csrf().disable();
+
+        http.addFilterBefore(originFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
 }
