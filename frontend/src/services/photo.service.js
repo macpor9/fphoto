@@ -9,11 +9,15 @@ axios.defaults.headers = {
     'Access-Control-Allow-Headers': 'Content-Type'
 }
 
-function upload(formData) {
-    return axios.post(API_URL + 'upload', formData, {
-        headers: {"Content-Type": "multipart/form-data"}
-    })
+class PhotoService{
+
+
+    upload(formData) {
+        return axios.post(API_URL + 'upload', formData, {
+            headers: {"Content-Type": "multipart/form-data"}
+        })
+    }
+
 }
 
-
-export { upload }
+export default new PhotoService();

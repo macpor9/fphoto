@@ -10,6 +10,7 @@ import pl.maciejp.fphoto.models.User;
 import pl.maciejp.fphoto.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:8081/")
@@ -18,18 +19,12 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/user")
-    public List<User> userList(String login){
-        List<User> userList = userRepository.findById(1);
-
-        return userList;
-    }
 
     @GetMapping(value="/", produces = MediaType.TEXT_PLAIN_VALUE)
     public String index() {
-        List<User> userList = userRepository.findByUsername("user1");
+        Optional<User> user = userRepository.findByUsername("user1");
 
-        return userList.get(0).getUsername();
+        return user.get().getUsername();
     }
 
 

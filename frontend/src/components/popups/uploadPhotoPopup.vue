@@ -49,7 +49,9 @@
 </template>
 
 <script>
-import { upload } from '@/services/fake'
+// import { upload } from '@/services/fake'
+// import { upload } from '@/services/photo.service'
+import PhotoService from '@/services/photo.service';
 
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
@@ -89,7 +91,7 @@ export default {
     save(formData) {
       this.currentStatus = STATUS_SAVING;
 
-      upload(formData)
+      PhotoService.upload(formData)
           .then(x => {
             this.uploadedFiles = [].concat(x);
             this.currentStatus = STATUS_SUCCESS;
