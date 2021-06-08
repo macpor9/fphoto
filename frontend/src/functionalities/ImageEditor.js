@@ -124,6 +124,12 @@ export class ImageEditor {
             this._canvas.style.height = newDomSize.height + "px";
         }
 
+        this._mode = ImageEditorModes.preview;
+        this._brushDown = false;
+        this._brushPositionLast = toVec(0, 0);
+        this._brushPositionStart = toVec(0, 0)
+        this._brushPositionEnd = toVec(0, 0)
+
         this.width = image.width;
         this.height = image.height;
         this._image = image;
@@ -161,6 +167,26 @@ export class ImageEditor {
         this._repaintImage()
 
         return true;
+    }
+
+    adjustGamma(gamma){
+        this._adjustGamma(gamma);
+    }
+
+    adjustContrast(contrast) {
+        this._adjustContrast(contrast)
+    }
+
+    adjustBrightness(brightness) {
+        this._adjustBrightness(brightness);
+    }
+
+    grayScale(){
+        this._grayScale();
+    }
+
+    invertColors(){
+        this._invertColors();
     }
 
     get mode(){
@@ -234,6 +260,8 @@ export class ImageEditor {
         this._image = new Image(this.width, this.height);
         this._image.src = this._canvas.toDataURL();
         this._historyAdd(this._image);
+
+        this._repaintImage();
     }
 
     _repaintImage() {
@@ -322,6 +350,97 @@ export class ImageEditor {
             this._updateImage();
     }
 
+
+    // ========= global actions
+
+    _invertColors(){
+        this._b.globalCompositeOperation = "difference";
+        this._b.fillStyle = "#FFFFFF";
+        this._b.fillRect(0, 0, this.width, this.height);
+        this._updateImage();
+        this._b.globalCompositeOperation = "source-over";
+    }
+
+    _adjustGamma(gamma){
+        let gammaCorrection = 1 / gamma;
+        let imgData = this._b.getImageData(0, 0, this.width, this.height);
+        let data = imgData.data;
+        for(let y = 0 ; y < imgData.height ; y++){
+            for(let x = 0 ; x < imgData.width ; x++){
+                let index = (y * imgData.width + x) * 4;
+
+                data[index + 0] = 255 * Math.pow(data[index + 0] / 255, gammaCorrection); // r
+                data[index + 1] = 255 * Math.pow(data[index + 1] / 255, gammaCorrection); // g
+                data[index + 2] = 255 * Math.pow(data[index + 2] / 255, gammaCorrection); // b
+            }
+        }
+
+        this._b.putImageData(imgData, 0, 0);
+        this._updateImage();
+    }
+
+    _adjustContrast(contrast){
+        let factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+        let imgData = this._b.getImageData(0, 0, this.width, this.height);
+        let data = imgData.data;
+        for(let y = 0 ; y < imgData.height ; y++){
+            for(let x = 0 ; x < imgData.width ; x++){
+                let index = (y * imgData.width + x) * 4;
+
+                data[index + 0] = clamp(factor * (data[index + 0] - 127) + 127, 0, 255) // r
+                data[index + 1] = clamp(factor * (data[index + 1] - 127) + 127, 0, 255) // g
+                data[index + 2] = clamp(factor * (data[index + 2] - 127) + 127, 0, 255) // b
+            }
+        }
+
+        this._b.putImageData(imgData, 0, 0);
+        this._updateImage();
+    }
+
+    _adjustBrightness(brightness){
+        let imgData = this._b.getImageData(0, 0, this.width, this.height);
+        let data = imgData.data;
+        for(let y = 0 ; y < imgData.height ; y++){
+            for(let x = 0 ; x < imgData.width ; x++){
+                let index = (y * imgData.width + x) * 4;
+
+                data[index + 0] = clamp(data[index + 0] + brightness, 0, 255); // r
+                data[index + 1] = clamp(data[index + 1] + brightness, 0, 255); // g
+                data[index + 2] = clamp(data[index + 2] + brightness, 0, 255); // b
+            }
+        }
+
+        this._b.putImageData(imgData, 0, 0);
+        this._updateImage();
+    }
+
+    _grayScale() {
+        let imgData = this._b.getImageData(0, 0, this.width, this.height);
+        let data = imgData.data;
+        for(let y = 0 ; y < imgData.height ; y++){
+            for(let x = 0 ; x < imgData.width ; x++){
+                let index = (y * imgData.width + x) * 4;
+                let r = data[index + 0] / 255;
+                let g = data[index + 1] / 255;
+                let b = data[index + 2] / 255;
+
+                let cLinear = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                let cSrgb;
+                if(cLinear <= 0.0031308)
+                    cSrgb = 12.92 * cLinear;
+                else
+                    cSrgb = 1.055 * Math.pow(cLinear, 1/2.4) - 0.055
+
+                cSrgb *= 255;
+                data[index + 0] = cSrgb;
+                data[index + 1] = cSrgb;
+                data[index + 2] = cSrgb;
+            }
+        }
+
+        this._b.putImageData(imgData, 0, 0);
+        this._updateImage();
+    }
 
 
     // ========= mouse handlers
