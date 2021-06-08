@@ -73,6 +73,13 @@ export class ImageEditor {
     _brushPositionEnd;
     _brushPositionLast;
 
+    _brushDrawHistory = []
+
+    /** The most inefficient CTRL+Z history
+     * @type {array<HTMLImageElement>} */
+    _imageHistory = []
+    _currentHistoryElement = 1;
+    _imageHistorySize = 10;
 
     /**
      *
@@ -120,7 +127,8 @@ export class ImageEditor {
         this.width = image.width;
         this.height = image.height;
         this._image = image;
-        this._b.drawImage(image, 0, 0, this.width, this.height);
+        this._historyAdd(this._image);
+        this._repaintImage();
     }
 
     /**
@@ -131,6 +139,28 @@ export class ImageEditor {
             this._brushDown = false;
 
         this._mode = mode;
+    }
+
+    undo(){
+        let img = this._historyUndo();
+        if(img === this._image)
+            return false;
+
+        this._image = img;
+        this._repaintImage()
+
+        return true;
+    }
+
+    redo(){
+        let img= this._historyRedo();
+        if(img === this._image)
+            return false;
+
+        this._image = img;
+        this._repaintImage()
+
+        return true;
     }
 
     get mode(){
@@ -157,11 +187,53 @@ export class ImageEditor {
         return this._brushSettings;
     }
 
-    // ========= inner functionalities
+    get imageHistorySize() {
+        return this._imageHistorySize;
+    }
+
+    set imageHistorySize(historySize) {
+        this._imageHistorySize = historySize;
+        if(this._imageHistory.length > historySize){
+            let diff = this._imageHistory.length - historySize;
+            this._imageHistory.slice(diff);
+        }
+    }
+
+// ========= inner functionalities
+
+    _historyAdd(img) {
+        if(this._currentHistoryElement > 1){
+            this._imageHistory.length = this._imageHistory.length - this._currentHistoryElement + 1;
+            this._currentHistoryElement = 1;
+        }
+
+        this._imageHistory.push(img)
+        if(this._imageHistory.length > this._imageHistorySize)
+            this._imageHistory = this._imageHistory.slice(1);
+    }
+
+    _historyUndo(){
+        this._currentHistoryElement++;
+        if(this._currentHistoryElement > this._imageHistory.length ){
+            this._currentHistoryElement = this._imageHistory.length;
+        }
+
+        return this._imageHistory[ this._imageHistory.length - this._currentHistoryElement];
+    }
+
+    _historyRedo(){
+        this._currentHistoryElement--;
+        if(this._currentHistoryElement < 1){
+            this._currentHistoryElement = 1
+        }
+
+        return this._imageHistory[ this._imageHistory.length - this._currentHistoryElement];
+    }
 
     _updateImage() {
         this._image = new Image(this.width, this.height);
         this._image.src = this._canvas.toDataURL();
+        this._historyAdd(this._image);
     }
 
     _repaintImage() {
@@ -190,6 +262,63 @@ export class ImageEditor {
         this._b.stroke();
 
         if(apply)
+            this._updateImage();
+    }
+
+    _drawRectangle(start, end, apply) {
+        if (!apply)
+            this._repaintImage()
+
+        this._b.fillStyle = this._brushSettings.color;
+
+        this._b.fillRect(start.x, start.y, end.x - start.x, end.y - start.y);
+
+        if(apply)
+            this._updateImage();
+    }
+
+    _drawCircle(start, end, apply) {
+        if (!apply)
+            this._repaintImage()
+
+        let center = toVec((start.x + end.x) * 0.5, (start.y + end.y) * 0.5 );
+        let r = toVec(Math.abs(start.x - center.x), Math.abs(start.y - center.y));
+        this._b.fillStyle = this._brushSettings.color;
+
+        this._b.beginPath()
+        this._b.ellipse(center.x, center.y, r.x, r.y, 0, 0, 2 * Math.PI);
+        this._b.fill();
+
+        if(apply)
+            this._updateImage();
+    }
+
+    /**
+     * @param {Vector} position
+     * @param {boolean} isEnd
+     * @private
+     */
+    _drawBrush(position, isEnd){
+        this._brushDrawHistory.push(position);
+
+        if(!isEnd)
+            this._repaintImage();
+
+        this._b.strokeStyle = this._brushSettings.color;
+        this._b.lineWidth = this._brushSettings.size;
+
+        this._b.beginPath()
+
+        this._b.moveTo(this._brushDrawHistory[0].x, this._brushDrawHistory[0].y);
+
+        for(let i = 1 ; i < this._brushDrawHistory.length ; i++) {
+            let pos = this._brushDrawHistory[i];
+            this._b.lineTo(pos.x, pos.y);
+        }
+
+        this._b.stroke();
+
+        if(isEnd)
             this._updateImage();
     }
 
@@ -224,6 +353,16 @@ export class ImageEditor {
 
         if(this._mode === ImageEditorModes.paintLine)
             this._drawLine(this._brushPositionStart, this._brushPositionEnd, true);
+
+        else if(this._mode === ImageEditorModes.paintRectangle)
+            this._drawRectangle(this._brushPositionStart, this._brushPositionEnd, true);
+
+        else if(this._mode === ImageEditorModes.paintCircle)
+            this._drawCircle(this._brushPositionStart, this._brushPositionEnd, true);
+
+        else if(this._mode === ImageEditorModes.paintBrush)
+            this._drawBrush(pos, true);
+
     }
 
     /**
@@ -237,6 +376,9 @@ export class ImageEditor {
         this._brushDown = true;
         this._brushPositionStart = pos;
         this._brushPositionLast = pos;
+
+        if(this._mode === ImageEditorModes.paintBrush)
+            this._brushDrawHistory = [];
     }
 
     /**
@@ -249,6 +391,18 @@ export class ImageEditor {
 
         if(this._mode === ImageEditorModes.paintLine)
             this._drawLine(this._brushPositionStart, pos, false);
+
+        if(this._mode === ImageEditorModes.paintRectangle)
+            this._drawRectangle(this._brushPositionStart, pos, false);
+
+        if(this._mode === ImageEditorModes.paintCircle)
+            this._drawCircle(this._brushPositionStart, pos, false);
+
+        else if(this._mode === ImageEditorModes.paintBrush)
+            this._drawBrush(pos, false);
+
+
+        this._brushPositionLast = pos;
     }
 
     // ================ events
