@@ -58,7 +58,7 @@ export default {
 }
 .editing-container {
   grid-column: 2 / 3;
-  background-color: aqua;
+  //background-color: aqua;
   display: flex;
   align-items: center;
   justify-content: center;

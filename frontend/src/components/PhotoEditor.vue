@@ -34,11 +34,11 @@ export default {
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: red;
+  /*background-color: red;*/
 }
 
 .editor-canvas {
-  background-color: blue;
+  /*background-color: blue;*/
 }
 
 </style>
