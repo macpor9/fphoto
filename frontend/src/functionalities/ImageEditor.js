@@ -129,6 +129,9 @@ export class ImageEditor {
         this._brushPositionLast = toVec(0, 0);
         this._brushPositionStart = toVec(0, 0)
         this._brushPositionEnd = toVec(0, 0)
+        this._currentHistoryElement = 1;
+        this._imageHistory = [];
+        this._brushDrawHistory = [];
 
         this.width = image.width;
         this.height = image.height;
