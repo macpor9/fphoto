@@ -2,8 +2,13 @@
   <div class="mainContainer">
     <TopBar></TopBar>
     <div class="editContent">
-      <LeftBar></LeftBar>
-      <component v-bind:is="this.$store.getters.menuType"></component>
+      <div class="menu-bar">
+        <LeftBar></LeftBar>
+        <component v-bind:is="this.$store.getters.menuType"></component>
+      </div>
+      <div class="editing-container">
+        <PhotoEditor class="editor"/>
+      </div>
     </div>
   </div>
 </template>
@@ -16,10 +21,11 @@ import TextField from "@/components/EditComponents/TextField";
 import BrushBar from "@/components/EditComponents/BrushBar";
 import PenBar from "@/components/EditComponents/PenBar";
 import SelectBar from "@/components/EditComponents/SelectBar";
+import PhotoEditor from "@/components/PhotoEditor";
 
 export default {
   name: "Editing",
-  components: {TextField, Adjust, LeftBar, TopBar,BrushBar, PenBar,SelectBar},
+  components: {PhotoEditor, TextField, Adjust, LeftBar, TopBar,BrushBar, PenBar,SelectBar},
   computed: {
     getMenuType(){
       return 'Adjust'
@@ -36,13 +42,30 @@ export default {
   background-color: @light-color;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .editContent{
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: minmax(4em, 10vw) auto;
   min-height: 90vh;
+}
+.menu-bar {
+  grid-column: 1 / 2;
+}
+.menu-bar > div {
+  height: 100%;
+}
+.editing-container {
+  grid-column: 2 / 3;
+  //background-color: aqua;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.editing-container > .editor {
+  width: 90%;
+  height: 90%;
 }
 
 </style>
