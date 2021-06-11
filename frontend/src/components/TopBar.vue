@@ -4,7 +4,8 @@
       <img src="/res/logo2.png" alt="photo">
     </div>
     <div class="optionsContainer divBar">
-      <button class="barButton">SAVE</button>
+<!--      <button class="barButton">PHOTOS</button>-->
+      <router-link to="/photos" tag="button" class="barButton">PHOTOS</router-link>
       <router-link to="/editing" tag="button" class="barButton">EDIT</router-link>
       <button class="barButton" @click="openUploadPopup">OPEN</button>
       <button class="barButton">EXPORT</button>
@@ -41,6 +42,9 @@ export default {
 <style scoped>
 
 .bar{
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -48,7 +52,7 @@ export default {
   align-items: center;
   background: #151515;
 
-  width: 100vw;
+  width: 100%;
   height: 10vh;
 }
 

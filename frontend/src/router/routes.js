@@ -3,6 +3,7 @@ import Login from '../pages/Login.vue';
 import Register from '../pages/Register.vue';
 import Editing from '../pages/Editing.vue';
 import Profile from "@/pages/Profile";
+import Photos from "@/pages/Photos";
 
 export default [
     {
@@ -26,6 +27,10 @@ export default [
         path: '/profile',
         component: Profile
     },
+    {
+        path: '/photos',
+        component: Photos
+    }
 
     // {
     //     path: '*',
