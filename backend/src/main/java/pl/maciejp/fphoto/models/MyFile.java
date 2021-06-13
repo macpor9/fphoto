@@ -1,12 +1,15 @@
 package pl.maciejp.fphoto.models;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "photos")
 public class MyFile {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -18,34 +21,16 @@ public class MyFile {
     @Column
     private String path;
 
-    public MyFile(){};
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_photos",
+            joinColumns = @JoinColumn(name = "photo_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private User user;
 
-    public MyFile(String name, String path){
+    public MyFile(String name, String path, User user) {
         this.name = name;
         this.path = path;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
+        this.user = user;
     }
 }

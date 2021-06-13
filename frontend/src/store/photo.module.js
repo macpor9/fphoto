@@ -1,20 +1,37 @@
 import PhotoService from "../services/photo.service";
 
-
 export const photo = {
     namespaced: true,
     state: {
-        popupState: false
+        popupState: false,
+        userFilesList: [],
+        actualPhoto: null
     },
     mutations: {
         setPopupVisibility(state,visable) {
             state.popupState = visable;
         },
+        addFileToList(state, file){
+            state.userFilesList.push(file);
+        },
+        setFileList(state,fileList){
+            state.userFilesList = fileList;
+        },
+        setActualPhoto(state, photo){
+            state.actualPhoto = photo
+        }
+
 
     },
     getters: {
         popupState: state => {
             return state.popupState;
+        },
+        userFilesList: state => {
+            return state.userFilesList;
+        },
+        actualPhoto: state => {
+          return state.actualPhoto;
         }
     },
     actions: {

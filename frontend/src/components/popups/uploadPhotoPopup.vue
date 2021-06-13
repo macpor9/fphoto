@@ -10,14 +10,6 @@
           <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" ref="fileInput"
                  @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
                  accept="image/*" class="input-file">
-
-
-<!--          <input type="file" ref="fileInput" id="plik"-->
-<!--                 accept="image/*" class="input-file">-->
-
-
-
-
           <p v-if="isInitial">
             Drag your file(s) here to begin<br> or click to browse
           </p>
@@ -81,6 +73,7 @@ export default {
   },
   methods: {
     closePopup() {
+      this.onLoad()
       this.$store.commit('photo/setPopupVisibility',false)
     },
     reset() {
@@ -109,7 +102,13 @@ export default {
       formData.append("file",this.$refs.fileInput.files[0])
       formData.append("name",this.$refs.fileInput.files[0].name)
       this.save(formData);
-    }
+    },
+    onLoad() {
+      PhotoService.getUserFiles().then((x)=> {
+        this.$store.commit('photo/setFileList',x.data)
+      });
+      console.log(this.$store.getters['photo/userFilesList'])
+    },
   },
   mounted() {
     this.reset();

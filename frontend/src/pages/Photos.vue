@@ -2,47 +2,33 @@
   <div class="main">
     <TopBar></TopBar>
     <div class="photosList">
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("kot")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-      <Photo v-bind:path='String("cyrk")'></Photo>
-
-
-
-
-
-
+      <li v-for="file in $store.getters['photo/userFilesList']" :key='file.id'>
+        <Photo v-bind:path='"http://localhost:8080/api/responseFile/userFiles/"+file.id'></Photo>
+      </li>
     </div>
+    <upload-photo-popup v-if="this.$store.getters['photo/popupState'] === true"></upload-photo-popup>
   </div>
 </template>
 
 <script>
 import Photo from "@/components/Photo";
 import TopBar from "@/components/TopBar";
+import UploadPhotoPopup from "@/components/popups/uploadPhotoPopup"
+import PhotoService from "@/services/photo.service";
 export default {
   name: "Photos",
-  components: {TopBar, Photo}
+  components: {TopBar, Photo, UploadPhotoPopup},
+  methods: {
+    onLoad() {
+      PhotoService.getUserFiles().then((x)=> {
+        this.$store.commit('photo/setFileList',x.data)
+      });
+      console.log(this.$store.getters['photo/userFilesList'])
+    },
+  },
+  beforeMount() {
+    this.onLoad()
+  }
 }
 </script>
 
@@ -65,6 +51,7 @@ export default {
   .photosList{
     background-color: @light-color;
     overflow-y: auto;
+    width: 100vw;
     overflow-x: hidden;
     max-height: 90vh;
     flex-wrap: wrap;
@@ -74,6 +61,7 @@ export default {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
+    list-style-type: none;
 
   }
 }

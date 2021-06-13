@@ -228,6 +228,10 @@ export class ImageEditor {
         }
     }
 
+    get imageData() {
+        return this._canvas.toDataURL()
+    }
+
 // ========= inner functionalities
 
     _historyAdd(img) {
@@ -594,9 +598,9 @@ function hasChild(elem, child){
     return false;
 }
 
-function getPos(mouseEvent){
-    return toVec(mouseEvent.offsetX, mouseEvent.offsetY);
-}
+// function getPos(mouseEvent){
+//     return toVec(mouseEvent.offsetX, mouseEvent.offsetY);
+// }
 
 /**
  * @param {Vector} offsetXY
