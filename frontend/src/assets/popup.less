@@ -1,0 +1,30 @@
+@import "variables.less";
+
+
+.uploadPhotoPopup{
+  z-index: 219;
+  position: fixed;
+  background: rgb(0 0 0 / 60%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 40em;
+    width: 40em;
+    //background:@secondary_background_gradient;
+    background: @middle-color;
+    box-shadow: 0 0 9px 3px black;
+    border-radius: 15px;
+    text-align: center;
+    //justify-content: center;
+    color: @text-color;
+  }
+}

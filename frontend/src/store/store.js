@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import {auth} from './auth.module';
+import {photo} from "@/store/photo.module";
 
 const Store = () => {
     return new Vuex.Store({
@@ -17,7 +18,8 @@ const Store = () => {
             }
         },
         modules: {
-            auth
+            auth,
+            photo
         }
 
 

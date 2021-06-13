@@ -4,32 +4,54 @@
       <img src="/res/logo2.png" alt="photo">
     </div>
     <div class="optionsContainer divBar">
-      <button class="barButton">SAVE</button>
-      <button class="barButton">EDIT</button>
-      <button class="barButton">OPEN</button>
-      <button class="barButton">EXPORT</button>
+<!--      <button class="barButton">PHOTOS</button>-->
+      <router-link to="/photos" tag="button" class="barButton">PHOTOS</router-link>
+      <router-link to="/editing" tag="button" class="barButton">EDIT</router-link>
+      <button class="barButton" @click="openUploadPopup">OPEN</button>
+      <button class="barButton" @click="getUser">EXPORT</button>
+
 
     </div>
     <div class="profileOptionsContainer divBar">
-      <button class="barButton">nickname</button>
-      <router-link to="/login" class="barButton" tag="button">
-        logout
-      </router-link>
-
+      <router-link to="/profile" tag="button" class="barButton">{{ this.$store.getters["auth/userName"] }}</router-link>
+<!--      <router-link to="/login" class="barButton" tag="button">-->
+<!--        logout-->
+<!--      </router-link>-->
+      <button class="barButton" @click="handleLogout">logout</button>
     </div>
 
   </div>
 </template>
 
 <script>
+import AuthService from '@/services/auth.service'
+
 export default {
-  name: "TopBar"
+  name: "TopBar",
+  openPhotoPopup: false,
+  methods: {
+    handleLogout() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    },
+    openUploadPopup() {
+      this.$store.commit('photo/setPopupVisibility',true)
+    },
+    getUser(){
+      AuthService.getUser().then(
+          console.log
+      )
+    }
+  }
 }
 </script>
 
 <style scoped>
 
 .bar{
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -37,7 +59,7 @@ export default {
   align-items: center;
   background: #151515;
 
-  width: 100vw;
+  width: 100%;
   height: 10vh;
 }
 
