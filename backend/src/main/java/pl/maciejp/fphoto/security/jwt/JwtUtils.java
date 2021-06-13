@@ -20,11 +20,13 @@ public class JwtUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    private String jwtSecret = "jwtS";
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
-    private final int jwtExpirationMs = 1;
+    private final int jwtExpirationMs = 1*60*60*1000;
 
     public String generateJwtToken(Authentication authentication) {
+        System.out.println(jwtSecret);
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 

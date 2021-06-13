@@ -59,8 +59,10 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    public User user(String username){
-        User user = userRepository.findFirstByUsername("dawid");
+    public User user(Authentication authentication){
+        UserDetailsImpl userDetails =  (UserDetailsImpl) authentication.getPrincipal();
+        User user = userRepository.findByUsername(userDetails.getUsername()).get();
+
 
 
         return user;

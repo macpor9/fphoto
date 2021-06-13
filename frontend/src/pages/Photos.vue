@@ -2,17 +2,31 @@
   <div class="main">
     <TopBar></TopBar>
     <div class="photosList">
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
-      <Photo v-bind:path='String("../tmp/CYRK.jpg")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("kot")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
+      <Photo v-bind:path='String("cyrk")'></Photo>
 
 
 
@@ -59,7 +73,7 @@ export default {
     height: 90vh;
     flex-direction: row;
     justify-content: space-evenly;
-    align-items: start;
+    align-items: flex-start;
 
   }
 }

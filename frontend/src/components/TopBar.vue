@@ -8,7 +8,7 @@
       <router-link to="/photos" tag="button" class="barButton">PHOTOS</router-link>
       <router-link to="/editing" tag="button" class="barButton">EDIT</router-link>
       <button class="barButton" @click="openUploadPopup">OPEN</button>
-      <button class="barButton">EXPORT</button>
+      <button class="barButton" @click="getUser">EXPORT</button>
 
 
     </div>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import AuthService from '@/services/auth.service'
+
 export default {
   name: "TopBar",
   openPhotoPopup: false,
@@ -34,6 +36,11 @@ export default {
     },
     openUploadPopup() {
       this.$store.commit('photo/setPopupVisibility',true)
+    },
+    getUser(){
+      AuthService.getUser().then(
+          console.log
+      )
     }
   }
 }

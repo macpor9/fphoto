@@ -1,16 +1,27 @@
 import axios from 'axios';
 
-axios.interceptors.request.use(function (config) {
+const myAxios = axios.create()
+
+myAxios.defaults.headers = {
+    'Access-Control-Allow-Origin': "http://localhost:8080",
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+    'Access-Control-Allow-Headers': 'Content-Type'
+}
+
+window.console.log("ssss")
+
+myAxios.interceptors.request.use(function (config) {
     let user = JSON.parse(localStorage.getItem('user'));
+    console.log(user)
     if (user && user.accessToken) {
-        config.headers.Authorization = user.accessToken
+        config.headers.Authorization = "Bearer " + user.accessToken
     }
     return config;
 }, function (err) {
     return Promise.reject(err);
 });
 
-axios.interceptors.response.use(function (response) {
+myAxios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     if (401 === error.response.status) {
@@ -22,4 +33,4 @@ axios.interceptors.response.use(function (response) {
     }
 });
 
-export default axios;
+export default myAxios

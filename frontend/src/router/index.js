@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes';
+// import axios from "@/config/axios.config";
+// import axios from "axios";
 
 
 Vue.use(VueRouter);
@@ -24,5 +26,6 @@ router.beforeEach((to, from, next) => {
 
     next();
 })
+
 
 export default router

@@ -1,12 +1,13 @@
-import axios from 'axios';
+// import axios from '@/config/axios.config';
+// import axios from "axios";
+import Vue from "vue";
 
 const API_URL = 'http://localhost:8080/api/auth/';
 
-axios.defaults.baseURL=API_URL;
 
 class AuthService {
     login(user) {
-        return axios
+        return Vue.axios
             .post(API_URL + 'signin', {
                 username: user.username,
                 password: user.password
@@ -20,12 +21,16 @@ class AuthService {
             });
     }
 
+    getUser(){
+        return Vue.axios.get(API_URL + 'user')
+    }
+
     logout() {
         localStorage.removeItem('user');
     }
 
     register(user) {
-        return axios.post(API_URL + 'signup', {
+        return Vue.axios.post(API_URL + 'signup', {
             username: user.username,
             email: user.email,
             password: user.password,
