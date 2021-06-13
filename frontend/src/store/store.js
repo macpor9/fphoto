@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 import {auth} from './auth.module';
 import {photo} from "@/store/photo.module";
+import {editor} from "@/store/app.module";
 
 const Store = () => {
     return new Vuex.Store({
@@ -19,7 +20,8 @@ const Store = () => {
         },
         modules: {
             auth,
-            photo
+            photo,
+            editor
         }
 
 

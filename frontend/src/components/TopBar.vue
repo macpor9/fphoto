@@ -8,7 +8,7 @@
       <router-link to="/photos" tag="button" class="barButton">PHOTOS</router-link>
       <router-link to="/editing" tag="button" class="barButton">EDIT</router-link>
       <button class="barButton" @click="openUploadPopup">OPEN</button>
-      <button class="barButton" @click="getUser">EXPORT</button>
+      <button class="barButton">EXPORT</button>
 
 
     </div>
@@ -38,10 +38,12 @@ export default {
       this.$store.commit('photo/setPopupVisibility',true)
     },
     getUser(){
+      console.log("sdadsdasasd")
       AuthService.getUser().then(
           console.log
       )
-    }
+    },
+
   }
 }
 </script>
@@ -49,6 +51,7 @@ export default {
 <style scoped>
 
 .bar{
+  z-index: 999;
   position: absolute;
   top: 0;
   left: 0;

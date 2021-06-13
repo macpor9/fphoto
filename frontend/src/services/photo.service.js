@@ -1,6 +1,8 @@
 // import axios from '@/config/axios.config';
 // import axios from "axios";
 import Vue from "vue";
+import axios from "axios";
+
 
 
 const API_URL = 'http://localhost:8080/api/photo/';
@@ -20,6 +22,14 @@ class PhotoService{
             headers: {"Content-Type": "multipart/form-data"}
         })
     }
+    getUserFiles(){
+        return Vue.axios
+            .get(API_URL + "userPhotos")
+    }
+    getImageFromUrl(url){
+        return axios.get(url,{responseType: "blob"})
+    }
+
 
 }
 

@@ -2,7 +2,7 @@
 <!--  <div class="photoContainer">-->
 <!--  <div class="photoContainer" :style="'background: url('+{path}+')'">-->
 <!--  <div class="photoContainer" :style="'background: red'">-->
-  <div class="photoContainer" :style="'background: url(' + getImgUrl(path) + ') center; background-size: cover'">
+  <div class="photoContainer" :style="{background: 'url(' + path + ') center', 'background-size': 'cover'}">
     <div class="opacity">
 
       <div class="editButton" @click="editPhoto" >
@@ -14,6 +14,7 @@
 </template>
 <!--v-bind:style="{background: 'red'}"-->
 <script>
+
 export default {
   name: "Photo",
   props: {
@@ -21,11 +22,12 @@ export default {
   },
   methods: {
     editPhoto(){
-      console.log(this.path)
+      this.$store.commit('photo/setActualPhoto', this.$props.path)
+      this.$router.push("/editing")
     },
-    getImgUrl(pet) {
+    getImgUrl(path) {
       var images = require.context('../tmp/', false, /\.jpg$/)
-      return images('./' + pet + ".jpg")
+      return images('./' + path + ".jpg")
     }
   }
 }

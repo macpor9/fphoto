@@ -44,7 +44,8 @@ export default {
   align-items: center;
   justify-content: center;
   min-height: 90vh;
-  width: 90vw;
+  width: 100vw;
+  margin-top: 10vh;
 }
 
 .profileContainer{

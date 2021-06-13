@@ -12,7 +12,6 @@ window.console.log("ssss")
 
 myAxios.interceptors.request.use(function (config) {
     let user = JSON.parse(localStorage.getItem('user'));
-    console.log(user)
     if (user && user.accessToken) {
         config.headers.Authorization = "Bearer " + user.accessToken
     }

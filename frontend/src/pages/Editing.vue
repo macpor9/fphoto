@@ -4,7 +4,7 @@
     <div class="editContent">
       <div class="menu-bar">
         <LeftBar></LeftBar>
-        <component v-bind:is="this.$store.getters.menuType"></component>
+        <component v-bind:is="this.$store.getters.menuType" class="secondMenu"></component>
       </div>
       <div class="editing-container">
         <PhotoEditor class="editor"/>
@@ -35,10 +35,11 @@ export default {
     }
   },
   methods: {
-    // handleFocusOut() {
-    //   this.$store.commit('photo/setPopupVisibility',false)
-    // }
+    handleFocusOut() {
+      this.$store.commit('photo/setPopupVisibility',false)
+    }
   }
+
 }
 </script>
 
@@ -57,23 +58,29 @@ export default {
   display: grid;
   grid-template-columns: minmax(4em, 10vw) auto;
   min-height: 90vh;
-}
-.menu-bar {
-  grid-column: 1 / 2;
-}
-.menu-bar > div {
-  height: 100%;
-}
-.editing-container {
-  grid-column: 2 / 3;
-  //background-color: aqua;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.editing-container > .editor {
-  width: 90%;
-  height: 90%;
+  margin-top: 10vh;
+  width: 100vw;
+  .menu-bar {
+    display: flex;
+    flex-direction: row;
+    //grid-column: 1 / 2;
+    //width: 100em;
+
+  }
+  .menu-bar > div {
+    height: 100%;
+  }
+  .editing-container {
+    grid-column: 2 / 3;
+    //background-color: aqua;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .editing-container > .editor {
+    width: 90%;
+    height: 90%;
+  }
 }
 
 </style>

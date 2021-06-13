@@ -31,7 +31,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: @dark-color;
-  width: 4vw;
+  width: 5em;
 }
 
 .mdi{
