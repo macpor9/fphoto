@@ -1,5 +1,5 @@
 <template>
-  <div class="brushContainer editBar">
+  <div class="selectContainer editBar">
     <settings-menu></settings-menu>
   </div>
 </template>
@@ -8,10 +8,10 @@
 import SettingsMenu from "@/components/EditComponents/SettingsMenu";
 import {ImageEditorModes} from "@/functionalities/ImageEditor";
 export default {
-  name: "BrushBar",
+  name: "RectangleBar",
   components: {SettingsMenu},
   mounted() {
-    this.$store.state.editor.imageEditor.selectMode(ImageEditorModes.paintBrush)
+    this.$store.state.editor.imageEditor.selectMode(ImageEditorModes.paintRectangle)
   }
 }
 </script>
@@ -19,7 +19,6 @@ export default {
 <style scoped lang="less">
 @import "./../../assets/variables.less";
 @import "./../../assets/Form.less";
-
 
 
 

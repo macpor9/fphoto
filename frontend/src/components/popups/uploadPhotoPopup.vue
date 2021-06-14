@@ -159,6 +159,17 @@ export default {
   flex-direction: row;
   justify-content: flex-end;
   width: 100%;
+  .mdi{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: floralwhite;
+    font-size: 7vh;
+  }
+
+  .mdi:hover{
+    color: @hover-color;
+    background-color: @middle-color;
+  }
 
 }
 
@@ -174,6 +185,8 @@ export default {
     height: 5vh;
   }
 }
+
+
 
 
 </style>

@@ -184,8 +184,8 @@ export class ImageEditor {
         this._adjustBrightness(brightness);
     }
 
-    grayScale(){
-        this._grayScale();
+    greyScale(){
+        this._greyScale();
     }
 
     invertColors(){
@@ -194,6 +194,10 @@ export class ImageEditor {
 
     get mode(){
         return this._mode;
+    }
+
+    get brightness(){
+        return this._brig
     }
 
     set width(width) {
@@ -232,6 +236,10 @@ export class ImageEditor {
         return this._canvas.toDataURL()
     }
 
+    imageBlob(callback) {
+        return this._canvas.toBlob(callback)
+    }
+
 // ========= inner functionalities
 
     _historyAdd(img) {
@@ -265,10 +273,11 @@ export class ImageEditor {
 
     _updateImage() {
         this._image = new Image(this.width, this.height);
+        this._image.onload = ()=>{
+            this._repaintImage();
+        }
         this._image.src = this._canvas.toDataURL();
         this._historyAdd(this._image);
-
-        this._repaintImage();
     }
 
     _repaintImage() {
@@ -421,7 +430,7 @@ export class ImageEditor {
         this._updateImage();
     }
 
-    _grayScale() {
+    _greyScale() {
         let imgData = this._b.getImageData(0, 0, this.width, this.height);
         let data = imgData.data;
         for(let y = 0 ; y < imgData.height ; y++){
@@ -539,8 +548,6 @@ export class ImageEditor {
 
         this._processMouseEvent("down", e.offsetX, e.offsetY);
 
-
-        console.log(this, ` down  ${e.offsetX}, ${e.offsetY}`);
     }
 
     /** @param {MouseEvent} e */
@@ -550,7 +557,6 @@ export class ImageEditor {
 
         this._processMouseEvent("up", e.offsetX, e.offsetY);
 
-        console.log(this, ` up  ${e.offsetX}, ${e.offsetY}`);
     }
 
     /** @param {MouseEvent} e */

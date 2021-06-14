@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {ImageEditor} from "@/functionalities/ImageEditor"
+import {ImageEditor, ImageEditorModes} from "@/functionalities/ImageEditor"
 import PhotoService from "@/services/photo.service";
 
 export default {
@@ -23,18 +23,18 @@ export default {
     this.$store.commit("editor/setImageEditor",this.imageEditor);
     console.log(this.$store.state.photo.actualPhoto)
     PhotoService.getImageFromUrl(this.$store.state.photo.actualPhoto).then((response) => {
-      console.log("1")
       let fr = new FileReader()
       fr.onloadend = () => {
-        console.log("2")
         let img = new Image();
         img.onload = () => {
         this.imageEditor.begin(img)
+        this.imageEditor .selectMode(ImageEditorModes.paintBrush);
         }
         img.src = fr.result;
       };
       fr.readAsDataURL(response.data)
     }).catch(console.warn)
+
     console.log(this.imageEditor);
   }
 }

@@ -14,11 +14,10 @@ import pl.maciejp.fphoto.repositories.UserRepository;
 import pl.maciejp.fphoto.repositories.UsersPhotosRepository;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @CrossOrigin("http://localhost:8081")
@@ -60,6 +59,38 @@ public class FileController {
             e.printStackTrace();
         }
         return ResponseEntity.ok(new MessageResponse("File uploaded successfully"));
+    }
+//
+//    @PutMapping("/upload/{id}")
+//    public Object updatePhoto(@PathVariable int id, @RequestParam("file") String requestFile){
+//        try {
+//            byte[] decodedBytes = Base64.getDecoder().decode(requestFile);
+//            Optional<MyFile> myFileOptional = fileRepository.findById(id);
+//            if(myFileOptional.isEmpty())
+//                return ResponseEntity.badRequest().body(new MessageResponse("File with id " + id + " not found!"));
+//            String path = "files/"+myFileOptional.get().getPath();
+//            File myFile = new File(path);
+//            FileOutputStream fileOutputStream = new FileOutputStream(myFile, false);
+//            fileOutputStream.write(decodedBytes);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return ResponseEntity.ok(new MessageResponse("File updates successfully"));
+//    }
+    @PutMapping("/upload/{id}")
+    public Object updatePhoto(@PathVariable int id, @RequestParam("file") MultipartFile requestFile){
+        try {
+            Optional<MyFile> myFileOptional = fileRepository.findById(id);
+            if(myFileOptional.isEmpty())
+                return ResponseEntity.badRequest().body(new MessageResponse("File with id " + id + " not found!"));
+            String path = "files/"+myFileOptional.get().getPath();
+            File myFile = new File(path);
+            FileOutputStream fileOutputStream = new FileOutputStream(myFile, false);
+            fileOutputStream.write(requestFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(new MessageResponse("File updates successfully"));
     }
 
     @GetMapping("/userPhotos")
