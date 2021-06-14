@@ -14,10 +14,11 @@ import pl.maciejp.fphoto.repositories.UserRepository;
 import pl.maciejp.fphoto.repositories.UsersPhotosRepository;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("http://localhost:8081")
@@ -97,6 +98,10 @@ public class FileController {
     public Object getUserFiles(){
         User user = getUserFromHeader();
         List<MyFile> files = fileRepository.findByUser_Id(user.getId());
+        for(MyFile f : files){
+            System.out.println(f.getName());
+        }
+        System.out.println(files.size());
 
         if(files.size() == 0)
             return ResponseEntity.ok("files not found");

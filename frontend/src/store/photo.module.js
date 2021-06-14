@@ -27,12 +27,14 @@ export const photo = {
 
 
 
+
     },
     getters: {
         popupState: state => {
             return state.popupState;
         },
         userFilesList: state => {
+            console.log(state.userFilesList)
             return state.userFilesList;
         },
         actualPhoto: state => {

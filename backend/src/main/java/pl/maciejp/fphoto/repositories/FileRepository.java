@@ -9,9 +9,6 @@ import java.util.Optional;
 public interface FileRepository extends CrudRepository<MyFile, Integer> {
     List<MyFile> findAllById(int id);
     Optional<MyFile> findById(int id);
-
-
-
     boolean existsByName(String name);
     boolean existsByPath(String path);
     boolean existsByNameAndUser_Id(String name, int id);

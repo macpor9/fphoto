@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.maciejp.fphoto.models.User;
 import pl.maciejp.fphoto.repositories.UserRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController

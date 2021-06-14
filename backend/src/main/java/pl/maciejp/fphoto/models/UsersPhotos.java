@@ -1,7 +1,6 @@
 package pl.maciejp.fphoto.models;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 

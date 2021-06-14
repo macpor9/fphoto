@@ -31,6 +31,7 @@ export default {
   openPhotoPopup: false,
   methods: {
     handleLogout() {
+      this.$store.state.photo.userFilesList = []
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
     },

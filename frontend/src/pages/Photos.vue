@@ -2,7 +2,7 @@
   <div class="main">
     <TopBar></TopBar>
     <div class="photosList">
-      <li v-for="file in $store.getters['photo/userFilesList']" :key='file.id'>
+      <li v-if="ready" v-for="file in $store.getters['photo/userFilesList']" :key='file.id'>
         <Photo v-bind:path='"http://localhost:8080/api/responseFile/userFiles/"+file.id' v-bind:id="file.id"></Photo>
       </li>
     </div>
@@ -18,15 +18,25 @@ import PhotoService from "@/services/photo.service";
 export default {
   name: "Photos",
   components: {TopBar, Photo, UploadPhotoPopup},
+  data(){
+    return {
+      ready: false
+    }
+  },
   methods: {
     onLoad() {
       PhotoService.getUserFiles().then((x)=> {
-        this.$store.commit('photo/setFileList',x.data)
+        if(typeof (x.data) !== "object")
+          this.$store.commit('photo/setFileList', [])
+        else
+          this.$store.commit('photo/setFileList',x.data)
+        this.ready = true;
       });
       console.log(this.$store.getters['photo/userFilesList'])
     },
   },
   beforeMount() {
+    this.ready = false;
     this.onLoad()
   }
 }

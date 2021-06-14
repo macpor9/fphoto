@@ -1,7 +1,4 @@
 <template>
-<!--  <div class="photoContainer">-->
-<!--  <div class="photoContainer" :style="'background: url('+{path}+')'">-->
-<!--  <div class="photoContainer" :style="'background: red'">-->
   <div class="photoContainer" :style="{background: 'url(' + path + ') center', 'background-size': 'cover'}">
     <div class="opacity">
 
@@ -9,9 +6,6 @@
         <div class="editButton" @click="editPhoto" >
           EDIT
         </div>
-<!--        <div class="editButton" id="downlaod" @click="downloadPhoto">-->
-<!--          DOWNLOAD-->
-<!--        </div>-->
         <a class="editButton" :href="path"
         v-text="'dwnl'"
         @click="downloadItem()"
@@ -21,7 +15,6 @@
     </div>
   </div>
 </template>
-<!--v-bind:style="{background: 'red'}"-->
 <script>
 
 import Vue from "vue";
