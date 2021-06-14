@@ -11,7 +11,6 @@ import pl.maciejp.fphoto.models.User;
 import pl.maciejp.fphoto.payload.response.MessageResponse;
 import pl.maciejp.fphoto.repositories.FileRepository;
 import pl.maciejp.fphoto.repositories.UserRepository;
-import pl.maciejp.fphoto.repositories.UsersPhotosRepository;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,9 +28,6 @@ public class FileController {
 
     @Autowired
     FileRepository fileRepository;
-
-    @Autowired
-    UsersPhotosRepository usersPhotosRepository;
 
     @PostMapping("/upload")
     @CrossOrigin("http://localhost:8081")
@@ -61,23 +57,7 @@ public class FileController {
         }
         return ResponseEntity.ok(new MessageResponse("File uploaded successfully"));
     }
-//
-//    @PutMapping("/upload/{id}")
-//    public Object updatePhoto(@PathVariable int id, @RequestParam("file") String requestFile){
-//        try {
-//            byte[] decodedBytes = Base64.getDecoder().decode(requestFile);
-//            Optional<MyFile> myFileOptional = fileRepository.findById(id);
-//            if(myFileOptional.isEmpty())
-//                return ResponseEntity.badRequest().body(new MessageResponse("File with id " + id + " not found!"));
-//            String path = "files/"+myFileOptional.get().getPath();
-//            File myFile = new File(path);
-//            FileOutputStream fileOutputStream = new FileOutputStream(myFile, false);
-//            fileOutputStream.write(decodedBytes);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return ResponseEntity.ok(new MessageResponse("File updates successfully"));
-//    }
+
     @PutMapping("/upload/{id}")
     public Object updatePhoto(@PathVariable int id, @RequestParam("file") MultipartFile requestFile){
         try {
@@ -98,10 +78,6 @@ public class FileController {
     public Object getUserFiles(){
         User user = getUserFromHeader();
         List<MyFile> files = fileRepository.findByUser_Id(user.getId());
-        for(MyFile f : files){
-            System.out.println(f.getName());
-        }
-        System.out.println(files.size());
 
         if(files.size() == 0)
             return ResponseEntity.ok("files not found");
@@ -111,8 +87,6 @@ public class FileController {
 
 
     private User getUserFromHeader() {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        System.out.println(SecurityContextHolder.getContext());
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findByUsername(userDetails.getUsername()).get();

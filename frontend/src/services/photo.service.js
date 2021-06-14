@@ -2,7 +2,6 @@
 // import axios from "axios";
 import Vue from "vue";
 import axios from "axios";
-import {upload} from "@/services/fake";
 
 
 

@@ -57,16 +57,6 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registrated!"));
     }
 
-    @GetMapping("/user")
-    public User user(Authentication authentication){
-        UserDetailsImpl userDetails =  (UserDetailsImpl) authentication.getPrincipal();
-        User user = userRepository.findByUsername(userDetails.getUsername()).get();
-
-
-
-        return user;
-    }
-
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) throws UsernameNotFoundException {
         Authentication authentication = authenticationManager.authenticate(
