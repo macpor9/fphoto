@@ -23,11 +23,6 @@
         <p>
           <a href="javascript:void(0)" @click="reset()">Upload again</a>
         </p>
-        <ul class="list-unstyled">
-          <li v-for="item in uploadedFiles" v-bind:key="item">
-            <img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">
-          </li>
-        </ul>
       </div>
       <div v-if="isFailed">
         <h2>Uploaded failed.</h2>

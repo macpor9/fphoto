@@ -1,5 +1,3 @@
-import PhotoService from "../services/photo.service";
-
 export const photo = {
     namespaced: true,
     state: {
@@ -12,9 +10,6 @@ export const photo = {
         setPopupVisibility(state,visable) {
             state.popupState = visable;
         },
-        addFileToList(state, file){
-            state.userFilesList.push(file);
-        },
         setFileList(state,fileList){
             state.userFilesList = fileList;
         },
@@ -24,10 +19,6 @@ export const photo = {
         setPhotoId(state, id){
             state.photoId = id
         }
-
-
-
-
     },
     getters: {
         popupState: state => {
@@ -36,18 +27,6 @@ export const photo = {
         userFilesList: state => {
             console.log(state.userFilesList)
             return state.userFilesList;
-        },
-        actualPhoto: state => {
-          return state.actualPhoto;
-        }
-    },
-    actions: {
-        uploadImage( event){
-            let data = new FormData();
-            data.append('name','my-picture');
-            data.append('file',event.target.files[0]);
-            console.log(data.get(name));
-            return PhotoService.upload(data.get(name))
         }
     }
 };

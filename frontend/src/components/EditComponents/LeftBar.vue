@@ -33,15 +33,6 @@ export default {
     },
     updatePhoto(){
       this.$store.state.editor.imageEditor.imageBlob((blob)=> {
-        // let reader = new FileReader()
-        // reader.onloadend = (() => {
-        //   let data = new FormData()
-        //   data.append("file",reader.result)
-        //   console.log(this.$store.state.photo.photoId)
-        //   PhotoService.updatePhoto(data,this.$store.state.photo.photoId).then(x =>{
-        //     console.log(x)
-        //   });
-        //   reader.
         let data = new FormData()
           let file = new File([blob],"name")
           data.append("file",file)

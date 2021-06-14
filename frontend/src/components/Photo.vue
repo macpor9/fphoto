@@ -32,23 +32,6 @@ export default {
       console.log("id = " + this.$store.state.photo.photoId)
       this.$router.push("/editing")
     },
-    download(data, filename, type) {
-      var file = new Blob([data], {type: type});
-      if (window.navigator.msSaveOrOpenBlob) // IE10+
-        window.navigator.msSaveOrOpenBlob(file, filename);
-      else { // Others
-        var a = document.createElement("a"),
-            url = URL.createObjectURL(file);
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        }, 0);
-      }
-    },
     downloadItem () {
       Vue.axios.get(this.$props.path, { responseType: 'blob' })
           .then(response => {
@@ -59,13 +42,6 @@ export default {
             link.click()
             URL.revokeObjectURL(link.href)
           }).catch(console.error)
-    },
-    downloadPhoto(){
-      return
-    },
-    getImgUrl(path) {
-      var images = require.context('../tmp/', false, /\.jpg$/)
-      return images('./' + path + ".jpg")
     }
   }
 }
@@ -79,7 +55,6 @@ export default {
   margin: 2em;
   width: 15em;
   height: 11em;
-  //background: url("../tmp/cyrk.jpg") center;
   align-items: center;
   border: darken(@light-color,90%) solid 1px;
   box-shadow:

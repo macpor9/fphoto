@@ -23,8 +23,6 @@ const Store = () => {
             photo,
             editor
         }
-
-
     })
 }
 export default Store

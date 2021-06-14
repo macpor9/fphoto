@@ -1,5 +1,3 @@
-// import axios from '@/config/axios.config';
-// import axios from "axios";
 import Vue from "vue";
 
 const API_URL = 'http://localhost:8080/api/auth/';

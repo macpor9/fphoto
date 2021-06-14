@@ -7,7 +7,6 @@
         <span class="mdi mdi-plus-box" @click="changeBrightness(10)"></span>
         <span class="mdi mdi-minus-box" @click="changeBrightness(-10)"></span>
       </div>
-<!--        <input type="number" class="slider" min="-100" max="100" ref="brightness">-->
     </div>
     <div class="singleSetting">
       <span class="settingTitle">contrast</span>
@@ -15,7 +14,6 @@
         <span class="mdi mdi-plus-box" @click="changeContrast(10)"></span>
         <span class="mdi mdi-minus-box" @click="changeContrast(-10)"></span>
       </div>
-<!--      <input type="number" class="slider" min="-100" max="100" ref="contrast">-->
     </div>
     <div class="singleSetting">
       <span class="settingTitle">gamma</span>
@@ -23,11 +21,7 @@
         <span class="mdi mdi-plus-box" @click="changeGamma(1.1)"></span>
         <span class="mdi mdi-minus-box" @click="changeGamma(0.91)"></span>
       </div>
-<!--      <input type="number" class="slider" min="0.01" max="2" step="0.01" ref="gamma">-->
     </div>
-  </div>
-  <div class="editButton" @click="saveChanges" >
-    SAVE
   </div>
   <div class="sliderContainer">
     <div class="singleSetting">
@@ -43,12 +37,10 @@
 </template>
 
 <script>
-import SettingsMenu from "@/components/EditComponents/SettingsMenu";
 
 
 export default {
   name: "Adjust",
-  components: {SettingsMenu},
   methods: {
     setColor(){
       this.$store.state.editor.imageEditor.brushSettings.color = this.$refs.colorInput.value;
@@ -63,12 +55,6 @@ export default {
     },
     setSize(val){
       this.$store.state.editor.imageEditor.brushSettings.size = val;
-    },
-    saveChanges(){
-      this.$store.state.editor.imageEditor.adjustBrightness(10)
-      console.log(this.$refs.brightness.value)
-      // this.$store.state.editor.imageEditor.adjustContrast(this.$refs.contrast)
-      // this.$store.state.editor.imageEditor.adjustGamma(this.$refs.gamma)
     },
     invertColors(){
       this.$store.state.editor.imageEditor.invertColors()

@@ -25,23 +25,10 @@ import RectangleBar from "@/components/EditComponents/RectangleBar";
 
 import PhotoEditor from "@/components/PhotoEditor";
 import UploadPhotoPopup from "@/components/popups/uploadPhotoPopup";
-import {ImageEditorModes} from "@/functionalities/ImageEditor";
 
 export default {
   name: "Editing",
-  components: {UploadPhotoPopup, PhotoEditor, LineBar, Adjust, LeftBar, TopBar,BrushBar, CircleBar,RectangleBar},
-  computed: {
-    getMenuType(){
-      return 'Adjust'
-    }
-  },
-  methods: {
-    handleFocusOut() {
-      this.$store.commit('photo/setPopupVisibility',false)
-    }
-  }
-
-
+  components: {UploadPhotoPopup, PhotoEditor, LineBar, Adjust, LeftBar, TopBar,BrushBar, CircleBar,RectangleBar}
 }
 </script>
 

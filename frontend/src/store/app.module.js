@@ -3,11 +3,6 @@ export const editor = {
     state:()=>({
         imageEditor: null
     }),
-    getters: {
-        getImageEditor(state){
-            return state.imageEditor
-        }
-    },
     mutations: {
         setImageEditor(state, value){
             state.imageEditor = value
