@@ -18,17 +18,18 @@
 import TopBar from "@/components/TopBar";
 import LeftBar from "@/components/EditComponents/LeftBar";
 import Adjust from "@/components/EditComponents/Adjust";
-import TextField from "@/components/EditComponents/TextField";
+import LineBar from "@/components/EditComponents/LineBar";
 import BrushBar from "@/components/EditComponents/BrushBar";
-import PenBar from "@/components/EditComponents/PenBar";
-import SelectBar from "@/components/EditComponents/SelectBar";
+import CircleBar from "@/components/EditComponents/CircleBar";
+import RectangleBar from "@/components/EditComponents/RectangleBar";
 
 import PhotoEditor from "@/components/PhotoEditor";
 import UploadPhotoPopup from "@/components/popups/uploadPhotoPopup";
+import {ImageEditorModes} from "@/functionalities/ImageEditor";
 
 export default {
   name: "Editing",
-  components: {UploadPhotoPopup, PhotoEditor, TextField, Adjust, LeftBar, TopBar,BrushBar, PenBar,SelectBar},
+  components: {UploadPhotoPopup, PhotoEditor, LineBar, Adjust, LeftBar, TopBar,BrushBar, CircleBar,RectangleBar},
   computed: {
     getMenuType(){
       return 'Adjust'
@@ -39,6 +40,7 @@ export default {
       this.$store.commit('photo/setPopupVisibility',false)
     }
   }
+
 
 }
 </script>
@@ -55,8 +57,10 @@ export default {
 }
 
 .editContent{
-  display: grid;
-  grid-template-columns: minmax(4em, 10vw) auto;
+  //display: grid;
+  //grid-template-columns: minmax(4em, 10vw) auto;
+  display: flex;
+  flex-direction: row;
   min-height: 90vh;
   margin-top: 10vh;
   width: 100vw;
@@ -64,15 +68,14 @@ export default {
     display: flex;
     flex-direction: row;
     //grid-column: 1 / 2;
-    //width: 100em;
+    width: 15vw;
 
   }
   .menu-bar > div {
     height: 100%;
   }
   .editing-container {
-    grid-column: 2 / 3;
-    //background-color: aqua;
+    width: 85vw;
     display: flex;
     align-items: center;
     justify-content: center;

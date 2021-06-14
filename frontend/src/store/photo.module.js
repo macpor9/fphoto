@@ -5,7 +5,8 @@ export const photo = {
     state: {
         popupState: false,
         userFilesList: [],
-        actualPhoto: null
+        actualPhoto: null,
+        photoId: null
     },
     mutations: {
         setPopupVisibility(state,visable) {
@@ -19,7 +20,11 @@ export const photo = {
         },
         setActualPhoto(state, photo){
             state.actualPhoto = photo
+        },
+        setPhotoId(state, id){
+            state.photoId = id
         }
+
 
 
     },

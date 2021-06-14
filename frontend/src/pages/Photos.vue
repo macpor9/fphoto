@@ -3,7 +3,7 @@
     <TopBar></TopBar>
     <div class="photosList">
       <li v-for="file in $store.getters['photo/userFilesList']" :key='file.id'>
-        <Photo v-bind:path='"http://localhost:8080/api/responseFile/userFiles/"+file.id'></Photo>
+        <Photo v-bind:path='"http://localhost:8080/api/responseFile/userFiles/"+file.id' v-bind:id="file.id"></Photo>
       </li>
     </div>
     <upload-photo-popup v-if="this.$store.getters['photo/popupState'] === true"></upload-photo-popup>

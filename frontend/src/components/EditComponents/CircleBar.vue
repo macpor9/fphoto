@@ -1,6 +1,10 @@
 <template>
-  <div class="brushContainer editBar">
+  <div class="penContainer editBar">
+
+
     <settings-menu></settings-menu>
+
+
   </div>
 </template>
 
@@ -8,10 +12,10 @@
 import SettingsMenu from "@/components/EditComponents/SettingsMenu";
 import {ImageEditorModes} from "@/functionalities/ImageEditor";
 export default {
-  name: "BrushBar",
+  name: "CircleBar",
   components: {SettingsMenu},
   mounted() {
-    this.$store.state.editor.imageEditor.selectMode(ImageEditorModes.paintBrush)
+    this.$store.state.editor.imageEditor.selectMode(ImageEditorModes.paintCircle)
   }
 }
 </script>
@@ -19,8 +23,5 @@ export default {
 <style scoped lang="less">
 @import "./../../assets/variables.less";
 @import "./../../assets/Form.less";
-
-
-
 
 </style>

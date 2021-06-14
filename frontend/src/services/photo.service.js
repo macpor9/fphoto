@@ -2,6 +2,7 @@
 // import axios from "axios";
 import Vue from "vue";
 import axios from "axios";
+import {upload} from "@/services/fake";
 
 
 
@@ -28,6 +29,12 @@ class PhotoService{
     }
     getImageFromUrl(url){
         return axios.get(url,{responseType: "blob"})
+    }
+    updatePhoto(formData, id) {
+        console.log(formData)
+        return Vue.axios.put(API_URL + 'upload/'+id, formData, {
+            headers: {"Content-Type": "multipart/form-data"}
+        })
     }
 
 
